@@ -4,12 +4,13 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebElementCondition;
+import lombok.Getter;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
+@Getter
 public class MainPage {
 
     private final ElementsCollection navBar = $$x("//ul[@class='navbar-nav ml-auto']//*");
