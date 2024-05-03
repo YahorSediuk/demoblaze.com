@@ -20,7 +20,22 @@ public class MainPage {
     private final SelenideElement usernameInputLoginForm = $x("//input[@id='loginusername']");
     private final SelenideElement passwordInputLoginForm = $x("//input[@id='loginpassword']");
     private final SelenideElement loginButton = $x("//button[@onclick='logIn()']");
+    private final ElementsCollection productHrefs = $$x("//div[@id='tbodyid']//a[@class]");
+    private final ElementsCollection priceFromList = $$x("//div[@class='card h-100']//h5");
     WebElementCondition condition = allOf(visible, enabled, clickable);
+
+    /**
+     * Getter for price of product from catalog
+     */
+    public String getPriceFromList(int index){
+       return priceFromList.get(index).getText();
+    }
+    /**
+     * Getter for name of product from catalog
+     */
+    public String getNameFromList(int index){
+       return productHrefs.get(index).getText();
+    }
     /**
      * Method for `sign up`
      */
@@ -65,5 +80,13 @@ public class MainPage {
                 .click();
                 Assert.assertEquals(navBar.find(id("nameofuser")).shouldBe(condition).getText(), "Welcome "+username);
         return this;
+    }
+    /**
+     * Method for going to product info page
+     */
+    public ProductInfoPage showProductInfo(int index){
+        productHrefs.filter(condition);
+        productHrefs.get(index).click();
+        return new ProductInfoPage();
     }
 }
