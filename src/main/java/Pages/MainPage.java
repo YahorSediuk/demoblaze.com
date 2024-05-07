@@ -24,17 +24,16 @@ public class MainPage {
     private final ElementsCollection priceFromList = $$x("//div[@class='card h-100']//h5");
     private final ElementsCollection modalWindow = $$x("//div[@class='modal-content']//*");
     WebElementCondition condition = allOf(visible, enabled, clickable);
-
     /**
      * Getter for price of product from catalog
      */
-    public String getPriceFromList(int index){
+    public String getPriceFromCatalog(int index){
        return priceFromList.get(index).getText();
     }
     /**
      * Getter for name of product from catalog
      */
-    public String getNameFromList(int index){
+    public String getNameFromCatalog(int index){
        return productHrefs.get(index).getText();
     }
     /**
@@ -83,7 +82,7 @@ public class MainPage {
         return this;
     }
     /**
-     * Method for going to product info page
+     * Method for going to the product info page
      */
     public ProductInfoPage showProductInfo(int index){
         productHrefs.filter(condition);
