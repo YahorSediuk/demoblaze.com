@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebElementCondition;
 import lombok.Getter;
+import org.openqa.selenium.devtools.v85.systeminfo.model.ImageDecodeAcceleratorCapability;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.*;
@@ -14,12 +15,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class MainPage {
 
     private final ElementsCollection navBar = $$x("//ul[@class='navbar-nav ml-auto']//*");
-    private final SelenideElement usernameInputSignupForm = $x("//input[@id='sign-username']");
-    private final SelenideElement passwordInputSignupForm = $x("//input[@id='sign-password']");
-    private final SelenideElement signupButton = $x("//button[@onclick='register()']");
-    private final SelenideElement usernameInputLoginForm = $x("//input[@id='loginusername']");
-    private final SelenideElement passwordInputLoginForm = $x("//input[@id='loginpassword']");
-    private final SelenideElement loginButton = $x("//button[@onclick='logIn()']");
     private final ElementsCollection productHrefs = $$x("//div[@id='tbodyid']//a[@class]");
     private final ElementsCollection priceFromList = $$x("//div[@class='card h-100']//h5");
     private final ElementsCollection modalWindow = $$x("//div[@class='modal-content']//*");
@@ -44,15 +39,16 @@ public class MainPage {
                 .find(text("Sign up"))
                 .shouldBe(condition)
                 .click();
-        usernameInputSignupForm
+        modalWindow
+                .find(id("sign-username"))
                 .shouldBe(condition, value(""))
                 .sendKeys(username);
-        Assert.assertEquals(usernameInputSignupForm.getValue(), username);
-        passwordInputSignupForm
+        modalWindow
+                .find(id("sign-password"))
                 .shouldBe(condition, value(""))
                 .sendKeys(password);
-        Assert.assertEquals(passwordInputSignupForm.getValue(), password);
-        signupButton
+        modalWindow
+                .find(attribute("onclick", "register()"))
                 .shouldBe(condition)
                 .click();
         if (Selenide.prompt().contains("Sign up successful.")){}
@@ -67,15 +63,16 @@ public class MainPage {
                 .find(text("Log in"))
                 .shouldBe(condition)
                 .click();
-        usernameInputLoginForm
+        modalWindow
+                .find(id("loginusername"))
                 .shouldBe(condition, value(""))
                 .sendKeys(username);
-                Assert.assertEquals(usernameInputLoginForm.getValue(), username);
-        passwordInputLoginForm
+        modalWindow
+                .find(id("loginpassword"))
                 .shouldBe(condition, value(""))
                 .sendKeys(password);
-                Assert.assertEquals(passwordInputLoginForm.getValue(), password);
-        loginButton
+        modalWindow
+                .find(attribute("onclick", "logIn()"))
                 .shouldBe(condition)
                 .click();
                 Assert.assertEquals(navBar.find(id("nameofuser")).shouldBe(condition).getText(), "Welcome "+username);
@@ -89,7 +86,6 @@ public class MainPage {
         productHrefs.get(index).click();
         return new ProductInfoPage();
     }
-
     /**
      * Method for sending `contact us` message
      */
