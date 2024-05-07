@@ -2,10 +2,8 @@ package Pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebElementCondition;
 import lombok.Getter;
-import org.openqa.selenium.devtools.v85.systeminfo.model.ImageDecodeAcceleratorCapability;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.*;
